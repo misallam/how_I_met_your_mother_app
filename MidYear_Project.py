@@ -61,7 +61,7 @@ if section == "HIMYM Analysis":
     st.write("This project provides an analysis of How I Met Your Mother TV show data.")
 
     # Display the Cover Image
-    st.image('/content/drive/MyDrive/HIMYM_MidYearProject/cover.jpg', use_column_width=True)
+    st.image('cover.jpg', use_column_width=True)
 
     # Display the DataFrame
     st.subheader("Original DataFrame")
