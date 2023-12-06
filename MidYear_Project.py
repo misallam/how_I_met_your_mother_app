@@ -154,7 +154,7 @@ if section == "HIMYM Analysis":
         sns.distplot(df['us_viewers'], kde=False, bins=25, ax=axes[3])
         axes[3].set_title('Distribution Plot for us_viewers')
     st.pyplot(fig)
-
+    
     # Logarithmic Transformation
     st.subheader("Logarithmic Transformation")
     st.text("Applying logarithmic transformation to 'holding_up_perc'.")
@@ -165,8 +165,9 @@ if section == "HIMYM Analysis":
     axes[0].set_title('Original Distribution Plot for holding_up_perc')
     
     # Logarithmic Transformation with Handling Zero and Negative Values
-    df['holding_up_perc_log'] = np.log1p(df['holding_up_perc'])  # Use np.log1p to handle zero values
-    sns.histplot(x='holding_up_perc_log', data=df, kde=True, ax=axes[1])
+    small_constant = 1e-5  # Choose a small constant to add to avoid zero or negative values
+    df['holding_up_perc'] = np.log(df['holding_up_perc'] + small_constant)
+    sns.histplot(x='holding_up_perc', data=df, kde=True, ax=axes[1])
     axes[1].set_title('Logarithmic Transformation for holding_up_perc')
     
     st.pyplot(fig)
