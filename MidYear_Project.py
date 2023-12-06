@@ -154,6 +154,7 @@ if section == "HIMYM Analysis":
         sns.distplot(df['us_viewers'], kde=False, bins=25, ax=axes[3])
         axes[3].set_title('Distribution Plot for us_viewers')
     st.pyplot(fig)
+
     
     # Logarithmic Transformation
     st.subheader("Logarithmic Transformation")
@@ -161,22 +162,19 @@ if section == "HIMYM Analysis":
     fig, axes = plt.subplots(nrows=1, ncols=2, figsize=(15, 5))
     
     # Original Distribution Plot
-    with pd.option_context('mode.use_inf_as_null', True):
-        sns.histplot(x='holding_up_perc', data=df, kde=True, ax=axes[0])
+    sns.histplot(x='holding_up_perc', data=df, kde=True, ax=axes[0])
     axes[0].set_title('Original Distribution Plot for holding_up_perc')
     
-    # Logarithmic Transformation with Handling Zero and Negative Values
+    # Transformation with Handling Zero and Negative Values
     small_constant = 1e-5  # Choose a small constant to add to avoid zero or negative values
     df['holding_up_perc'] = np.log(df['holding_up_perc'] + small_constant)
     
-    # Reset the option after plotting
-    with pd.option_context('mode.use_inf_as_null', True):
-        sns.histplot(x='holding_up_perc', data=df, kde=True, ax=axes[1])
+    # New Distribution Plot after Logarithmic Transformation
+    sns.histplot(x='holding_up_perc', data=df, kde=True, ax=axes[1])
     axes[1].set_title('Logarithmic Transformation for holding_up_perc')
-    
     st.pyplot(fig)
 
-
+    
     # KDE Plots
     st.subheader("KDE Plots")
     st.text("Visualizing KDE plots for selected columns.")
