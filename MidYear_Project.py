@@ -26,8 +26,6 @@ df = pd.read_csv(file_path)
 transcription_path = 'himym_transcripts.csv'
 tf = pd.read_csv(transcription_path)
 
-pd.set_option('mode.use_inf_as_null', True)
-
 # Dark theme and fixed top bar styling
 st.markdown(
     """
