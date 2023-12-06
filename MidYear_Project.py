@@ -160,38 +160,12 @@ if section == "HIMYM Analysis":
     # Logarithmic Transformation
     st.subheader("Logarithmic Transformation")
     st.text("Applying logarithmic transformation to 'holding_up_perc'.")
-    
-    # Print basic information for debugging
-    st.text(f"Before transformation - Number of rows: {len(df)}, Column exists: {'holding_up_perc' in df.columns}")
-    
-    # Display the first few rows of the DataFrame
-    st.text("First few rows of the DataFrame:")
-    st.write(df.head())
-    
-    # Create a copy of the DataFrame for transformation
-    df_transformed = df.copy()
-    
-    # Check for NaN or Inf values before transformation
-    st.text("Checking for NaN or Inf values before transformation:")
-    st.write(df_transformed[df_transformed['holding_up_perc'].isna() | ~np.isfinite(df_transformed['holding_up_perc'])])
-    
-    # Original Distribution Plot
     fig, axes = plt.subplots(nrows=1, ncols=2, figsize=(15, 5))
-    sns.histplot(x='holding_up_perc', data=df_transformed, kde=True, ax=axes[0])
+    sns.histplot(x='holding_up_perc', data=df, kde=True, ax=axes[0])
     axes[0].set_title('Original Distribution Plot for holding_up_perc')
-    
-    # Logarithmic Transformation using np.log1p
-    df_transformed['holding_up_perc'] = np.log1p(df_transformed['holding_up_perc'])
-    
-    # Check for NaN or Inf values after transformation
-    st.text("Checking for NaN or Inf values after transformation:")
-    st.write(df_transformed[df_transformed['holding_up_perc'].isna() | ~np.isfinite(df_transformed['holding_up_perc'])])
-    
-    # New Distribution Plot after Logarithmic Transformation
-    sns.histplot(x='holding_up_perc', data=df_transformed, kde=True, ax=axes[1])
+    df['holding_up_perc'] = np.log(df['holding_up_perc'])*10
+    sns.histplot(x='holding_up_perc', data=df, kde=True, ax=axes[1])
     axes[1].set_title('Logarithmic Transformation for holding_up_perc')
-    
-    # Show the plot
     st.pyplot(fig)
 
 ###########
