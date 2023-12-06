@@ -26,6 +26,8 @@ df = pd.read_csv(file_path)
 transcription_path = 'himym_transcripts.csv'
 tf = pd.read_csv(transcription_path)
 
+pd.set_option('mode.use_inf_as_null', True)
+
 # Dark theme and fixed top bar styling
 st.markdown(
     """
@@ -159,11 +161,16 @@ if section == "HIMYM Analysis":
     st.subheader("Logarithmic Transformation")
     st.text("Applying logarithmic transformation to 'holding_up_perc'.")
     fig, axes = plt.subplots(nrows=1, ncols=2, figsize=(15, 5))
+    
+    # Original Distribution Plot
     sns.histplot(x='holding_up_perc', data=df, kde=True, ax=axes[0])
     axes[0].set_title('Original Distribution Plot for holding_up_perc')
-    df['holding_up_perc'] = np.log(df['holding_up_perc'])*np.log(df['holding_up_perc'])
-    sns.histplot(x='holding_up_perc', data=df, kde=True, ax=axes[1])
+    
+    # Logarithmic Transformation with Handling Zero and Negative Values
+    df['holding_up_perc_log'] = np.log1p(df['holding_up_perc'])  # Use np.log1p to handle zero values
+    sns.histplot(x='holding_up_perc_log', data=df, kde=True, ax=axes[1])
     axes[1].set_title('Logarithmic Transformation for holding_up_perc')
+    
     st.pyplot(fig)
 
     # KDE Plots
